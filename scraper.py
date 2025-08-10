@@ -1,3 +1,4 @@
+import sys
 import requests
 from bs4 import BeautifulSoup
 
@@ -35,3 +36,19 @@ def scrape_and_clean(url):
         "title": title,
         "content": paragraphs
     }
+
+# -------- Main Program --------
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python scraper.py <URL>")
+        sys.exit(1)
+
+    url = sys.argv[1]
+    result = scrape_and_clean(url)
+
+    if result:
+        print(f"\n🔍 Scraping: {result['url']}")
+        print(f"📄 Title: {result['title']}")
+        print("\nContent:")
+        for para in result['content']:
+            print(f"- {para}")
